@@ -7,26 +7,27 @@
 4. 流程示例:
     * 后端模型(所有暴露的字段,文件位于lilac项目/graphql下)
     ```
-type User {
-    id: ID!
-    ids: Json! # 身份登录的信息, ids原因可能是有手机号,设备号,其他第三方等
-    info: Json # 个人信息
-    conf: Json # 配置
-    locked: Boolean! # 账号锁
-    show: Boolean! # 显示
-    created_by: ID # 由谁建立
-    created_at: DateTime!
-    updated_at: DateTime!
-    orgs: [Org!]! # 用户所有属的组织, 注意一个用户可以会属于多个组织
-    roles: [Role!]! # 用户角色,同上,角色和组织是对应的
-}
+    type User {
+        id: ID!
+        ids: Json! # 身份登录的信息, ids原因可能是有手机号,设备号,其他第三方等
+        info: Json # 个人信息
+        conf: Json # 配置
+        locked: Boolean! # 账号锁
+        show: Boolean! # 显示
+        created_by: ID # 由谁建立
+        created_at: DateTime!
+        updated_at: DateTime!
+        orgs: [Org!]! # 用户所有属的组织, 注意一个用户可以会属于多个组织
+        roles: [Role!]! # 用户角色,同上,角色和组织是对应的
+    }
     ```
+
     后端暴露方法
     ```
-type Query {
-    users: [User!]! @all # 用户列表, 返回类型为上面的User数组(外面带[],没有即为空),字段任意取
-    user(id: ID @eq): User @find # 按ID查询单个用户,返回用户类型(非数组,外面没有[])
-}
+    type Query {
+        users: [User!]! @all # 用户列表, 返回类型为上面的User数组(外面带[],没有即为空),字段任意取
+        user(id: ID @eq): User @find # 按ID查询单个用户,返回用户类型(非数组,外面没有[])
+    }
     ```
 
     * 前端
