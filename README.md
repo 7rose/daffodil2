@@ -38,7 +38,7 @@
         user.graphql # 包含 "user" 所有暴露的字段, 以及其他数据库关系(调用其他模型)
         ```
     3. 具体的使用
-        * 编写查询/变异
+        * 编写查询
         ```
         {
             users{
@@ -63,6 +63,56 @@
         }
         ```
         * 将查询/变异的结果写入前端状态管理(大部分情况不需要)
-        * 用前端状态管理插件包裹 <widgit>
+        * 用前端状态管理插件包裹 `<widgit>`
         * 显示
+
+        * 编写变异与查询相同,注意参数是包裹在`input{...}`,前端需做检验,但后端也会校验,如:ChineseMobile是后端定义,不符合规则的会返回错误
+        ```
+        input SendSmsCodeInput {
+            device_id: String!
+            mobile: ChineseMobile! 
+        }
+        ```
+        * 完整的身份认证接口字段
+        ```
+        # input trustMoblieInput { # 前端输入字段: 一键登录,设备id和手机号,后端直接返回token
+        #     device_id: String!
+        #     mobile: ChineseMobile!
+        # }
+
+        input SendSmsCodeInput { # 前端输入字段: 发送验证码, 原计划返回广播,后省事直接返回成功
+            device_id: String!
+            mobile: ChineseMobile!
+        }
+
+        input GetTokenInput { # 前端输入字段: 使用验证码获取token,返回同一键
+            device_id: String!
+            mobile: ChineseMobile!
+            code: SmsCode!
+        }
+
+        type SendSmsResault { # 返回结果: registered 是否为已注册用户, success是否发送成功(为省事全部为成功)
+            registered: Boolean!
+            success: Boolean!
+        }
+
+        type TokenPayload { # 返回结果: token 
+            token: String!
+        }
+
+        type LogoutResault { # 返回结果: 退出登录
+            success: Boolean!
+        }
+
+        ```
+        * 完整的身份认证方法
+        ```
+        type Mutation {
+            # trustMoblie(input: trustMoblieInput! @spread) : TokenPayload! # 表示前端执行 `trustMoblie`, 带 `trustMoblieInput` 定义中需要的字段, `@spread` 为后端方法,前端不管, 冒号后是返回的结果 `TokenPayload`
+            sendSmsCode(input: SendSmsCodeInput! @spread) : SendSmsResault! # 以下全部同上
+            getToken(input: GetTokenInput! @spread) : TokenPayload!
+            logout: LogoutResault!
+        }
+        ```
+
         
