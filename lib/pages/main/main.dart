@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:daffodil/pages/goodsDetail/goodsDetail.dart';
 import 'package:daffodil/pages/user/login/login.dart';
+import 'package:daffodil/pages/user/login/JVerifyLogin.dart';
+
 import './initialize_items.dart';
 import '../../common/navigators/router.dart';
 import 'package:daffodil/common/global/global.dart';
@@ -29,9 +31,12 @@ class _MainScreenState extends State<MainScreen> {
         items: items,
         onTap: (index) {
           if(index == 2){
-            Navigator.of(context).pushNamed(
-                LoginPage.routeName,
-                arguments:{});
+//            Navigator.of(context).pushNamed(
+//                LoginPage.routeName,
+//                arguments:{});
+          Navigator.of(context).pushNamed(
+            JVerify.routeName,
+          );
             return;
           }
           setState(() {

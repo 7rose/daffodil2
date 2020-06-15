@@ -5,6 +5,7 @@ import 'package:daffodil/pages/category/category.dart';
 import 'package:flutter/material.dart';
 import 'package:daffodil/pages/user/index.dart';
 import 'package:daffodil/pages/user/login/login.dart';
+import 'package:daffodil/pages/user/login/JVerifyLogin.dart';
 
 class LLRouter {
   static final String initialRoute = MainScreen.routeName;
@@ -15,6 +16,8 @@ class LLRouter {
     Category.routeName: (ctx) => Category(),
     UserCenterPage.routeName: (ctx) => UserCenterPage(),
     LoginPage.routeName: (ctx) => LoginPage(),
+    JVerify.routeName: (ctx) => JVerify(),
+
   };
 
   // 自己扩展
