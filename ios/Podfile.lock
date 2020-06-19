@@ -5,6 +5,13 @@ PODS:
   - connectivity_macos (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - JCore (2.3.0)
+  - JVerification (2.6.3):
+    - JCore (< 6.0.0, >= 2.1.6)
+  - jverify (0.0.1):
+    - Flutter
+    - JCore
+    - JVerification (= 2.6.3)
   - path_provider (0.0.1):
     - Flutter
   - path_provider_macos (0.0.1):
@@ -15,10 +22,15 @@ DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - Flutter (from `Flutter`)
+  - JVerification
+  - jverify (from `.symlinks/plugins/jverify/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
 
 SPEC REPOS:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - JCore
+    - JVerification
   trunk:
     - Reachability
 
@@ -29,6 +41,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_macos/ios"
   Flutter:
     :path: Flutter
+  jverify:
+    :path: ".symlinks/plugins/jverify/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   path_provider_macos:
@@ -38,10 +52,13 @@ SPEC CHECKSUMS:
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  JCore: 7fb83e1e75e00df37e9e1e33f3adae79182ad57c
+  JVerification: 7e428f4fb818c1263472f0cffb93e34a3cf4bd66
+  jverify: 6003bdb4b05177a3f1534a8f83e62954a46afabe
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
-PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+PODFILE CHECKSUM: 22a1d15ffabf9d9f558ac86b8b2bba3451c39637
 
 COCOAPODS: 1.9.1

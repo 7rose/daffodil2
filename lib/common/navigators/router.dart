@@ -17,8 +17,9 @@ class LLRouter {
     UserCenterPage.routeName: (ctx) => UserCenterPage(),
     LoginPage.routeName: (ctx) => LoginPage(),
     JVerify.routeName: (ctx) => JVerify(),
-
   };
+
+
 
   // 自己扩展
   static final RouteFactory generateRoute = (settings) {
