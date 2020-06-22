@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
 //                LoginPage.routeName,
 //                arguments:{});
           Navigator.of(context).pushNamed(
-            JVerify.routeName,
+            LoginPage.routeName,
           );
             return;
           }
