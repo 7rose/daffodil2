@@ -1,4 +1,4 @@
-package com.example.daffodil
+package com.app.daffodil
 
 import io.flutter.embedding.android.FlutterActivity
 
