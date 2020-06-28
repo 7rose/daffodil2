@@ -5,6 +5,8 @@ import '../../../common/services/http_request.dart';
 import '../../../common/graphql_services/api.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:jverify/jverify.dart';
 import 'dart:async';
 import 'dart:io';
@@ -359,6 +361,16 @@ class _Login extends State<LoginPage> {
     jverify.checkVerifyEnable().then((map) {
       bool result = map[f_result_key];
       if (result) {
+//        Fluttertoast.showToast(
+//            msg: _result,
+//            toastLength: Toast.LENGTH_SHORT,
+//            gravity: ToastGravity.CENTER,
+//            timeInSecForIosWeb: 1,
+//            backgroundColor: Colors.red,
+//            textColor: Colors.white,
+//            fontSize: 16.0
+//        );
+
         final screenSize = MediaQuery.of(context).size;
         final screenWidth = screenSize.width;
         final screenHeight = screenSize.height;
@@ -484,7 +496,19 @@ class _Login extends State<LoginPage> {
         setState(() {
           _loading = false;
           _result = "[2016],msg = 当前网络环境不支持认证";
+
         });
+
+        Fluttertoast.showToast(
+            msg: _result,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+
       }
     });
   }

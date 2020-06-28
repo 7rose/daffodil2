@@ -31,12 +31,12 @@ class _MainScreenState extends State<MainScreen> {
         items: items,
         onTap: (index) {
           if(index == 2){
-//            Navigator.of(context).pushNamed(
-//                LoginPage.routeName,
-//                arguments:{});
-          Navigator.of(context).pushNamed(
-            JVerify.routeName,
-          );
+            Navigator.of(context).pushNamed(
+                LoginPage.routeName,
+                arguments:{});
+//          Navigator.of(context).pushNamed(
+//            JVerify.routeName,
+//          );
             return;
           }
           setState(() {
