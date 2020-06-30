@@ -1,3 +1,4 @@
+import 'package:daffodil/pages/Discovery/index.dart';
 import 'package:daffodil/pages/main/main.dart';
 import 'package:daffodil/pages/goodsDetail/goodsDetail.dart';
 import 'package:daffodil/pages/category/category.dart';
@@ -17,6 +18,7 @@ class LLRouter {
     UserCenterPage.routeName: (ctx) => UserCenterPage(),
     LoginPage.routeName: (ctx) => LoginPage(),
     JVerify.routeName: (ctx) => JVerify(),
+    DiscoveryPage.routeName:(ctx) => DiscoveryPage()
   };
 
 
