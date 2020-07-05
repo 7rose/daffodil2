@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import '../../../common/services/http_request.dart';
 import '../../../common/graphql_services/api.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:jverify/jverify.dart';
 import 'dart:async';
 import 'dart:io';
+import 'countdownTimer.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
@@ -26,18 +25,11 @@ class _Login extends State<LoginPage> {
   String smsTxt;
   bool isShowPassWord = false;
 
-  //极光认证
-  final Jverify jverify = new Jverify();
-
-  /// 统一 key
-  final String f_result_key = "result";
-
-  /// 错误码
-  final String f_code_key = "code";
-
-  /// 回调的提示信息，统一返回 flutter 为 message
-  final String f_msg_key = "message";
-
+  final Jverify jverify = new Jverify();   ///极光认证
+  final String f_result_key = "result";  /// 统一 key
+  final String f_code_key = "code";   /// 错误码
+  final String f_msg_key = "message";   /// 回调的提示信息，统一返回 flutter 为 message
+  ///
   /// 运营商信息
   final String f_opr_key = "operator";
   bool _loading = false;
@@ -58,17 +50,6 @@ class _Login extends State<LoginPage> {
   void login() {
     FocusScope.of(context).requestFocus(FocusNode());
     this.doLogin();
-
-    //读取当前的Form状态
-//    var loginForm = loginKey.currentState;
-//    //验证Form表单
-//    if (loginForm.validate()) {
-//      loginForm.save();
-//      print('userName: ' + userName + ' password: ' + password);
-////      getMealData();
-//      getSMS(userName,password);
-//    }
-//    this.doGetUserInfo();
   }
 
   void topSpeedLogin() {
@@ -78,9 +59,11 @@ class _Login extends State<LoginPage> {
   }
 
   Future<void> getSMS() async {
-    print('=== getSMS $userName');
+    if(this.userName.length < 11){
+      // 手机号验证错误
+      return;
+    }
 
-//    return ;
     final MutationOptions sendSMSOptions = MutationOptions(
       documentNode: gql(sendSMS),
       variables: <String, dynamic>{
@@ -112,7 +95,6 @@ class _Login extends State<LoginPage> {
 
   Future<void> doGetUserInfo() async {
     final HttpLink d = client.value.link;
-
     final QueryResult result = await client.value.mutate(getInfo);
     print(result.data);
     print('===22' + result.exception.toString());
@@ -146,13 +128,6 @@ class _Login extends State<LoginPage> {
       appBar: AppBar(title: Text('登陆')),
       body: new Column(
         children: <Widget>[
-          new Container(
-              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: new Text(
-                'LOGO',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 53, 53, 53), fontSize: 40.0),
-              )),
           new Container(
             padding: const EdgeInsets.all(16.0),
             child: new Form(
@@ -201,15 +176,11 @@ class _Login extends State<LoginPage> {
                               fontSize: 15.0,
                               color: Color.fromARGB(255, 93, 93, 93)),
                           border: InputBorder.none,
-                          suffixIcon: FlatButton(
-                            child: Container(
-                              color: Colors.blue,
-                                padding: EdgeInsets.all(8),
-                                child: Text('获取验证码',
-                                    style: TextStyle(color: Colors.white))),
-                            onPressed: () {
-                              this.getSMS();
-                            },
+                          suffixIcon: Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: LoginFormCode(onTapCallback: (){
+                                this.getSMS();
+                            },),
                           )),
                       keyboardType: TextInputType.number,
                       onSaved: (value) {
