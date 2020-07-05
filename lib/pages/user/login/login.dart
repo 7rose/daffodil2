@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -12,10 +13,10 @@ import 'countdownTimer.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
-
   @override
   _Login createState() => new _Login();
 }
+const tokenSaveName = 'token';
 
 class _Login extends State<LoginPage> {
   //获取Key用来获取Form表单组件
@@ -91,6 +92,13 @@ class _Login extends State<LoginPage> {
     showDialog(context: context, builder: (ctx)=> new AlertDialog(
       content:  Text('$token'),
     ));
+
+    if(token != null){
+      ///登录成功 存储token
+      SpUtil.putString(tokenSaveName, token);
+      String savedTokeName = SpUtil.getString(tokenSaveName);
+      print("MyApp savedToken = : $savedTokeName ");
+    }
   }
 
   Future<void> doGetUserInfo() async {
@@ -125,7 +133,7 @@ class _Login extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('登陆')),
+      appBar: AppBar(title: Text('')),
       body: new Column(
         children: <Widget>[
           new Container(
@@ -212,29 +220,6 @@ class _Login extends State<LoginPage> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(45.0)),
                       ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 30.0),
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Container(
-                          child: Text(
-                            '注册账号',
-                            style: TextStyle(
-                                fontSize: 13.0,
-                                color: Color.fromARGB(255, 53, 53, 53)),
-                          ),
-                        ),
-                        Text(
-                          '忘记密码？',
-                          style: TextStyle(
-                              fontSize: 13.0,
-                              color: Color.fromARGB(255, 53, 53, 53)),
-                        ),
-                      ],
                     ),
                   ),
                   _getFirstLoginButton(),
