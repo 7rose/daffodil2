@@ -25,11 +25,12 @@ class _Login extends State<LoginPage> {
   String smsTxt;
   bool isShowPassWord = false;
 
+
+  bool _isShowFirstLogin = false;
   final Jverify jverify = new Jverify();   ///极光认证
   final String f_result_key = "result";  /// 统一 key
   final String f_code_key = "code";   /// 错误码
   final String f_msg_key = "message";   /// 回调的提示信息，统一返回 flutter 为 message
-  ///
   /// 运营商信息
   final String f_opr_key = "operator";
   bool _loading = false;
@@ -54,7 +55,6 @@ class _Login extends State<LoginPage> {
 
   void topSpeedLogin() {
     FocusScope.of(context).requestFocus(FocusNode());
-
     loginAuth();
   }
 
@@ -237,24 +237,7 @@ class _Login extends State<LoginPage> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: 45.0,
-                    margin: EdgeInsets.only(top: 40.0),
-                    child: new SizedBox.expand(
-                      child: new RaisedButton(
-                        onPressed: topSpeedLogin,
-                        color: Color.fromARGB(123, 161, 103, 228),
-                        child: new Text(
-                          '本机号一键登录',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                        ),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(45.0)),
-                      ),
-                    ),
-                  ),
+                  _getFirstLoginButton(),
                 ],
               ),
             ),
@@ -264,6 +247,29 @@ class _Login extends State<LoginPage> {
     );
   }
 
+  Widget _getFirstLoginButton() {
+    if(_isShowFirstLogin){
+      return Container(
+        height: 45.0,
+        margin: EdgeInsets.only(top: 40.0),
+        child: new SizedBox.expand(
+          child: new RaisedButton(
+            onPressed: topSpeedLogin,
+            color: Color.fromARGB(123, 161, 103, 228),
+            child: new Text(
+              '本机号一键登录',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  color: Color.fromARGB(255, 255, 255, 255)),
+            ),
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(45.0)),
+          ),
+        ),
+      );
+    }
+    return Container(height:0.0,width:0.0);
+  }
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
@@ -281,9 +287,7 @@ class _Login extends State<LoginPage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-
     if (!mounted) return;
-
     setState(() {
       _platformVersion = platformVersion;
     });
@@ -317,6 +321,10 @@ class _Login extends State<LoginPage> {
       bool result = map[f_result_key];
       setState(() {
         if (result) {
+          _isShowFirstLogin = true;
+          setState(() {
+
+          });
           _result = "当前网络环境【支持认证】！";
         } else {
           _result = "当前网络环境【不支持认证】！";
@@ -332,15 +340,6 @@ class _Login extends State<LoginPage> {
     jverify.checkVerifyEnable().then((map) {
       bool result = map[f_result_key];
       if (result) {
-//        Fluttertoast.showToast(
-//            msg: _result,
-//            toastLength: Toast.LENGTH_SHORT,
-//            gravity: ToastGravity.CENTER,
-//            timeInSecForIosWeb: 1,
-//            backgroundColor: Colors.red,
-//            textColor: Colors.white,
-//            fontSize: 16.0
-//        );
 
         final screenSize = MediaQuery.of(context).size;
         final screenWidth = screenSize.width;
@@ -356,8 +355,8 @@ class _Login extends State<LoginPage> {
 
         //uiConfig.navHidden = true;
         uiConfig.navColor = Colors.red.value;
-        uiConfig.navText = "登录";
-        uiConfig.navTextColor = Colors.blue.value;
+        uiConfig.navText = "";
+        uiConfig.navTextColor = Colors.white.value;
         uiConfig.navReturnImgPath = "return_bg"; //图片必须存在
 
         uiConfig.logoWidth = 100;
@@ -388,7 +387,7 @@ class _Login extends State<LoginPage> {
         //uiConfig.logBtnOffsetX = isiOS ? 0 : null;//(screenWidth/2 - uiConfig.logBtnWidth/2).toInt();
         uiConfig.logBtnOffsetY = isiOS ? 20 : 230;
         uiConfig.logBtnVerticalLayoutItem = JVIOSLayoutItem.ItemSlogan;
-        uiConfig.logBtnText = "登录按钮";
+        uiConfig.logBtnText = "登录";
         uiConfig.logBtnTextColor = Colors.brown.value;
         uiConfig.logBtnTextSize = 16;
         uiConfig.loginBtnNormalImage = "login_btn_normal"; //图片必须存在
@@ -406,7 +405,7 @@ class _Login extends State<LoginPage> {
         //uiConfig.privacyCheckboxHidden = false;
 
         //uiConfig.privacyOffsetX = isiOS ? (20 + uiConfig.privacyCheckboxSize) : null;
-        uiConfig.privacyOffsetY = 15; // 距离底部距离
+        uiConfig.privacyOffsetY = 60; // 距离底部距离
         uiConfig.privacyVerticalLayoutItem = JVIOSLayoutItem.ItemSuper;
         uiConfig.clauseName = "协议1";
         uiConfig.clauseUrl = "http://www.baidu.com";
@@ -414,7 +413,7 @@ class _Login extends State<LoginPage> {
         uiConfig.clauseNameTwo = "协议二";
         uiConfig.clauseUrlTwo = "http://www.hao123.com";
         uiConfig.clauseColor = Colors.red.value;
-        uiConfig.privacyText = ["1极", "2光", "3认", "4证"];
+        uiConfig.privacyText = ["登录即表示您已详细阅读并同意", "app", "与", ""];
         uiConfig.privacyTextSize = 13;
         //uiConfig.privacyWithBookTitleMark = true;
         //uiConfig.privacyTextCenterGravity = false;
@@ -467,19 +466,7 @@ class _Login extends State<LoginPage> {
         setState(() {
           _loading = false;
           _result = "[2016],msg = 当前网络环境不支持认证";
-
         });
-
-        Fluttertoast.showToast(
-            msg: _result,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
-
       }
     });
   }
