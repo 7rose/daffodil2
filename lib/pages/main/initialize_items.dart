@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../home/index.dart';
 import '../user/index.dart';
+import '../Discovery/index.dart';
 
 final List<Widget> pages = [
   HomePage(),
-  UserCenterPage(),
+  DiscoveryPage(),
   UserCenterPage()
 ];
 
