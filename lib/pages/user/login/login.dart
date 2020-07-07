@@ -210,15 +210,15 @@ class _Login extends State<LoginPage> {
                     child: new SizedBox.expand(
                       child: new RaisedButton(
                         onPressed: login,
-                        color: Color.fromARGB(255, 61, 203, 128),
+                        color: Theme.of(context).primaryColor,
                         child: new Text(
                           '登录',
                           style: TextStyle(
                               fontSize: 14.0,
                               color: Color.fromARGB(255, 255, 255, 255)),
                         ),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(45.0)),
+//                        shape: new RoundedRectangleBorder(
+//                            borderRadius: new BorderRadius.circular(45.0)),
                       ),
                     ),
                   ),
