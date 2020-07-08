@@ -58,3 +58,18 @@ final String getJvToken = r'''
     }
   }
 ''';
+
+final String getDiscoveries = r'''
+    {
+    discoveries{
+			title
+      content
+      cover_image
+      eye_images
+      author
+      likes
+      comments
+      favorites
+    }
+  }
+''';
