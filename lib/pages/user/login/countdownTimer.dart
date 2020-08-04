@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:daffodil/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// 墨水瓶（`InkWell`）可用时使用的字体样式。
@@ -10,7 +11,7 @@ final TextStyle _availableStyle = TextStyle(
 /// 墨水瓶（`InkWell`）不可用时使用的样式。
 final TextStyle _unavailableStyle = TextStyle(
   fontSize: 16.0,
-  color: const Color(0xFFCCCCCC),
+  color: const Color(0xFF666666),
 );
 
 class LoginFormCode extends StatefulWidget {
@@ -77,10 +78,11 @@ class _LoginFormCodeState extends State<LoginFormCode> {
 
   @override
   Widget build(BuildContext context) {
+    _verifyStr = AppLocalizations.of(context).getVerifyCode;
     // 墨水瓶（`InkWell`）组件，响应触摸的矩形区域。
     return widget.available ? InkWell(
       child: Text(
-        '  $_verifyStr  ',
+        '  $_verifyStr ',
         style: inkWellStyle,
       ),
       onTap: (_seconds == widget.countdown) ? () {
@@ -92,7 +94,7 @@ class _LoginFormCodeState extends State<LoginFormCode> {
       } : null,
     ): InkWell(
       child: Text(
-        '获取验证码',
+        AppLocalizations.of(context).getVerifyCode,
         style: _unavailableStyle,
       ),
     );

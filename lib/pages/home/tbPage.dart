@@ -110,7 +110,7 @@ class FastEntry extends StatelessWidget {
     return Container(
       height: 220,
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+//        color: Colors.grey[50],
 //          borderRadius:BorderRadius.only(topLeft: Radius(1),);
       ),
       alignment: Alignment.center,
@@ -125,7 +125,7 @@ class FastEntry extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: Column(children: <Widget>[
                   Container(
-                    color: Colors.grey[100],
+//                    color: Colors.grey[100],
                     child: Image.network(
                       e.picUrl,
                       key: UniqueKey(),

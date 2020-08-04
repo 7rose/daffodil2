@@ -56,8 +56,7 @@ class _HomePageState extends State<HomePage> {
     ScreenUtil.instance = ScreenUtil(width: Klength.designWidth)..init(context);
     GlobalKey<TbHomeState> _newsKey = GlobalKey<TbHomeState>();
 
-    return MaterialApp(
-      home: DefaultTabController(
+    return DefaultTabController(
         length: 12,
         child: Scaffold(
           appBar: AppBar(
@@ -65,9 +64,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: (){
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(Icons.account_circle,color: Colors.white,size: 30),
+              icon: Icon(Icons.account_circle,size: 30,color: Colors.blue,),
             ),
-            brightness: Brightness.light,
+//            brightness: Brightness.dark,
 //            backgroundColor: Colors.white,
             bottom: PreferredSize(
               preferredSize:Size(100, 50) ,
@@ -76,6 +75,8 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     width: 360,
                     child: TabBar(
+                      labelColor:Colors.blue,
+                      unselectedLabelColor: Colors.black54,
                       isScrollable: true,
                       tabs: [
                         Tab(text: '分类1',),
@@ -94,7 +95,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 IconButton(
-                  icon: Icon(Icons.widgets,color:Colors.white),
+                  icon: Icon(Icons.widgets,
+//                      color:Colors.white
+                  ),
                   onPressed: (){
 //                    Navigator.of(context).push(route)
                     Navigator.of(context).pushNamed(Category.routeName,
@@ -166,8 +169,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   ListView _countriesView(QueryResult result) {

@@ -1,3 +1,4 @@
+import 'package:daffodil/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -133,7 +134,7 @@ class _JVerifyState extends State<JVerify> {
                 onPressed: () {
                   getSMSCode();
                 },
-                title: "获取验证码",
+                title: AppLocalizations.of(context).getVerifyCode,
               ),
               width: double.infinity,
             ),

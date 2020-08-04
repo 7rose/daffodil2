@@ -13,17 +13,33 @@ class HYAppTheme {
   static final Color norTextColors = Colors.red;
 
   static final ThemeData norTheme = ThemeData(
-    primarySwatch: Colors.blue,
-//    primaryColor: Colors.white,
+//    primarySwatch: Colors.blue,
+    primaryColor: Colors.blue,
     accentColor: Colors.indigo,
-    canvasColor: Colors.white,
-    textTheme: TextTheme(
+    secondaryHeaderColor: Colors.indigo,
+//    canvasColor: Colors.white,
+//      brightness:Brightness.light,
+//      primaryColorBrightness:Brightness.dark,
+      textTheme: TextTheme(
       bodyText1: TextStyle(fontSize: bodyFontSize,color: Colors.black87),
       headline4: TextStyle(fontSize: smallFontSize, color: Colors.black87),
       headline3: TextStyle(fontSize: normalFontSize, color: Colors.black87),
       headline2: TextStyle(fontSize: largeFontSize, color: Colors.black87),
       headline1: TextStyle(fontSize: xlargeFontSize, color: Colors.black87),
-    )
+    ),
+    appBarTheme: AppBarTheme(
+      elevation: 0.0,
+      color: Colors.white,
+      brightness: Brightness.light,
+      textTheme: TextTheme(
+        headline1: TextStyle(fontSize: bodyFontSize,color: Colors.black87),
+        bodyText1: TextStyle(fontSize: bodyFontSize,color: Colors.black87),
+      ),
+      iconTheme:IconThemeData(
+          color: Colors.black,
+      )
+    ),
+
   );
 
 
@@ -31,9 +47,18 @@ class HYAppTheme {
   static final Color darkTextColors = Colors.green;
 
   static final ThemeData darkTheme = ThemeData(
-    primarySwatch: Colors.grey,
-    textTheme: TextTheme(
+      brightness:Brightness.dark,
+      primarySwatch: Colors.red,
+      primaryColor:Colors.red,
+      accentColor:Colors.red,
+//      buttonTheme:Colors.red,
+      textTheme: TextTheme(
         bodyText1: TextStyle(fontSize: normalFontSize, color: darkTextColors)
-    )
+    ),
+      appBarTheme: AppBarTheme(
+        elevation: 0.0,
+        color: Colors.black26,
+        brightness: Brightness.dark,
+      )
   );
 }

@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentIndex,
         selectedFontSize: 14,
         unselectedFontSize: 14,
-        items: items,
+        items: getBarItems(context),
         onTap: (index) {
           if(index == 2){
             Navigator.of(context).pushNamed(

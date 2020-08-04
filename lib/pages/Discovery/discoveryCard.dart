@@ -22,7 +22,7 @@ class DiscoveryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(width: 750, height: 1334, allowFontScaling: false);
+    ScreenUtil.init(context,width: 750, height: 1334, allowFontScaling: false);
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

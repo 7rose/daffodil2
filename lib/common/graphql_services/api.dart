@@ -7,8 +7,8 @@ ValueNotifier<GraphQLClient> client = ValueNotifier(
   GraphQLClient(
     cache: InMemoryCache(),
     link: HttpLink(
-        uri: 'https://wechat.mooibay.com/graphql',
-      headers: headers('')
+        uri: 'https://api.mooibay.com/graphql',
+        headers: headers('')
     ),
   ),
 );

@@ -1,3 +1,4 @@
+import 'package:daffodil/localization/app_localizations.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,11 @@ import 'countdownTimer.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = 'LoginPage';
+
   @override
   _Login createState() => new _Login();
 }
+
 const tokenSaveName = 'token';
 
 class _Login extends State<LoginPage> {
@@ -26,19 +29,25 @@ class _Login extends State<LoginPage> {
   String smsTxt;
   bool isShowPassWord = false;
 
-
   bool _isShowFirstLogin = false;
-  final Jverify jverify = new Jverify();   ///极光认证
-  final String f_result_key = "result";  /// 统一 key
-  final String f_code_key = "code";   /// 错误码
-  final String f_msg_key = "message";   /// 回调的提示信息，统一返回 flutter 为 message
+  final Jverify jverify = new Jverify();
+
+  ///极光认证
+  final String f_result_key = "result";
+
+  /// 统一 key
+  final String f_code_key = "code";
+
+  /// 错误码
+  final String f_msg_key = "message";
+
+  /// 回调的提示信息，统一返回 flutter 为 message
   /// 运营商信息
   final String f_opr_key = "operator";
   bool _loading = false;
   bool isShowTopSpeedLogin = false;
   String _result = "token=";
   String _platformVersion = 'Unknown';
-
 
   final MutationOptions getInfo =
       MutationOptions(documentNode: gql(getUserInfo));
@@ -60,7 +69,7 @@ class _Login extends State<LoginPage> {
   }
 
   Future<void> getSMS() async {
-    if(this.userName.length < 11){
+    if (this.userName.length < 11) {
       // 手机号验证错误
       return;
     }
@@ -69,7 +78,7 @@ class _Login extends State<LoginPage> {
       documentNode: gql(sendSMS),
       variables: <String, dynamic>{
         'device_id': 'sadjkljakd11231231dsadadasd',
-        'mobile':this.userName ,
+        'mobile': this.userName,
       },
     );
     final QueryResult result = await client.value.mutate(sendSMSOptions);
@@ -89,11 +98,13 @@ class _Login extends State<LoginPage> {
     final String token = result.data.toString();
     print('===' + token);
 //    {result.data.getToken.token} is auth token
-    showDialog(context: context, builder: (ctx)=> new AlertDialog(
-      content:  Text('$token'),
-    ));
+    showDialog(
+        context: context,
+        builder: (ctx) => new AlertDialog(
+              content: Text('$token'),
+            ));
 
-    if(token != null){
+    if (token != null) {
       ///登录成功 存储token
       SpUtil.putString(tokenSaveName, token);
       String savedTokeName = SpUtil.getString(tokenSaveName);
@@ -119,9 +130,11 @@ class _Login extends State<LoginPage> {
     final QueryResult result = await client.value.mutate(getJVTokenOptions);
     print('===22' + result.data.toString());
 
-    showDialog(context: context, builder: (ctx)=> new AlertDialog(
-      content:  Text(result.data.toString()),
-    ));
+    showDialog(
+        context: context,
+        builder: (ctx) => new AlertDialog(
+              content: Text(result.data.toString()),
+            ));
   }
 
   void showPassWord() {
@@ -133,7 +146,9 @@ class _Login extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('')),
+      appBar: AppBar(
+        title: Text(''),
+      ),
       body: new Column(
         children: <Widget>[
           new Container(
@@ -145,16 +160,21 @@ class _Login extends State<LoginPage> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color.fromARGB(255, 240, 240, 240),
-                                width: 1.0))),
+                      border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromARGB(255, 240, 240, 240),
+                            width: 1.0),
+                      ),
+                    ),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: '请输入手机号',
+//                        labelText: '请输入手机号',
+                        hintText: AppLocalizations.of(context).inputPhoneHint,
+//                        labelText: AppLocalizations.of(context).inputPhoneHint,
                         labelStyle: TextStyle(
-                            fontSize: 15.0,
-                            color: Color.fromARGB(255, 93, 93, 93)),
+                          fontSize: 15.0,
+//                            color: Color.fromARGB(255, 93, 93, 93)
+                        ),
                         border: InputBorder.none,
                       ),
                       keyboardType: TextInputType.phone,
@@ -164,7 +184,7 @@ class _Login extends State<LoginPage> {
                       validator: (phone) {
                         this.userName = phone;
                         if (phone.length > 0 && phone.length < 11) {
-                          return '请输入正确的手机号';
+                          return AppLocalizations.of(context).inputPhoneInvalid;
                         }
                         return '';
                       },
@@ -179,16 +199,22 @@ class _Login extends State<LoginPage> {
                                 width: 1.0))),
                     child: new TextFormField(
                       decoration: new InputDecoration(
-                          labelText: '请输入验证码',
+//                          labelText: AppLocalizations.of(context)
+//                              .inputVerificationCodeHint,
+                      hintText:AppLocalizations.of(context).inputVerificationCodeHint,
                           labelStyle: new TextStyle(
                               fontSize: 15.0,
                               color: Color.fromARGB(255, 93, 93, 93)),
                           border: InputBorder.none,
                           suffixIcon: Container(
+//                            color: Colors.red,
+//                            width: 100,
                             padding: EdgeInsets.only(top: 20),
-                            child: LoginFormCode(onTapCallback: (){
+                            child: LoginFormCode(
+                              onTapCallback: () {
                                 this.getSMS();
-                            },),
+                              },
+                            ),
                           )),
                       keyboardType: TextInputType.number,
                       onSaved: (value) {
@@ -197,7 +223,8 @@ class _Login extends State<LoginPage> {
                       validator: (phone) {
                         this.smsTxt = phone;
                         if (phone.length > 0 && phone.length < 4) {
-                          return '请输入验证码';
+                          return AppLocalizations.of(context)
+                              .inputVerificationCodeHint;
                         }
                         return '';
                       },
@@ -210,12 +237,13 @@ class _Login extends State<LoginPage> {
                     child: new SizedBox.expand(
                       child: new RaisedButton(
                         onPressed: login,
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         child: new Text(
-                          '登录',
+                          AppLocalizations.of(context).login,
                           style: TextStyle(
-                              fontSize: 14.0,
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                            fontSize: 14.0,
+//                              color: Color.fromARGB(255, 255, 255, 255)
+                          ),
                         ),
 //                        shape: new RoundedRectangleBorder(
 //                            borderRadius: new BorderRadius.circular(45.0)),
@@ -233,7 +261,7 @@ class _Login extends State<LoginPage> {
   }
 
   Widget _getFirstLoginButton() {
-    if(_isShowFirstLogin){
+    if (_isShowFirstLogin) {
       return Container(
         height: 45.0,
         margin: EdgeInsets.only(top: 40.0),
@@ -244,8 +272,7 @@ class _Login extends State<LoginPage> {
             child: new Text(
               '本机号一键登录',
               style: TextStyle(
-                  fontSize: 14.0,
-                  color: Color.fromARGB(255, 255, 255, 255)),
+                  fontSize: 14.0, color: Color.fromARGB(255, 255, 255, 255)),
             ),
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(45.0)),
@@ -253,8 +280,9 @@ class _Login extends State<LoginPage> {
         ),
       );
     }
-    return Container(height:0.0,width:0.0);
+    return Container(height: 0.0, width: 0.0);
   }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
@@ -307,9 +335,7 @@ class _Login extends State<LoginPage> {
       setState(() {
         if (result) {
           _isShowFirstLogin = true;
-          setState(() {
-
-          });
+          setState(() {});
           _result = "当前网络环境【支持认证】！";
         } else {
           _result = "当前网络环境【不支持认证】！";
@@ -325,7 +351,6 @@ class _Login extends State<LoginPage> {
     jverify.checkVerifyEnable().then((map) {
       bool result = map[f_result_key];
       if (result) {
-
         final screenSize = MediaQuery.of(context).size;
         final screenWidth = screenSize.width;
         final screenHeight = screenSize.height;
@@ -349,7 +374,7 @@ class _Login extends State<LoginPage> {
         //uiConfig.logoOffsetX = isiOS ? 0 : null;//(screenWidth/2 - uiConfig.logoWidth/2).toInt();
         uiConfig.logoOffsetY = 10;
         uiConfig.logoVerticalLayoutItem = JVIOSLayoutItem.ItemSuper;
-        uiConfig.logoHidden = false;
+        uiConfig.logoHidden = true;
         uiConfig.logoImgPath = "logo";
 
         uiConfig.numberFieldWidth = 200;
@@ -365,10 +390,11 @@ class _Login extends State<LoginPage> {
         uiConfig.sloganTextColor = Colors.black.value;
         uiConfig.sloganTextSize = 15;
 //        uiConfig.slogan
-        //uiConfig.sloganHidden = 0;
+//        uiConfig.sloganHidden = 0;
+//        uiConfig.sloganHidden = true;
 
         uiConfig.logBtnWidth = 220;
-        uiConfig.logBtnHeight = 50;
+        uiConfig.logBtnHeight = 35;
         //uiConfig.logBtnOffsetX = isiOS ? 0 : null;//(screenWidth/2 - uiConfig.logBtnWidth/2).toInt();
         uiConfig.logBtnOffsetY = isiOS ? 20 : 230;
         uiConfig.logBtnVerticalLayoutItem = JVIOSLayoutItem.ItemSlogan;
