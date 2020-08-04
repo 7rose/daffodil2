@@ -1,6 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:daffodil/common/navigators/router.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:daffodil/model/homeStore.dart';
 import 'package:daffodil/model/initAppStore.dart';
@@ -10,6 +11,8 @@ import 'package:daffodil/pages/shared/size_fit.dart';
 import 'common/utils/screen_util.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:daffodil/localization/app_localizations.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     HYSizeFit.initialize();
+
+    if (Platform.isAndroid) {
+      final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
